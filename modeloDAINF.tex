@@ -35,6 +35,10 @@
 \usepackage{listings}
 \usepackage{hyperref}
 
+\usepackage{enumitem} 
+%%https://tex.stackexchange.com/questions/58713/ref-should-use-enumerate-label-name
+\usepackage{nameref}
+
 \captionsetup{justification=raggedright,singlelinecheck=false,format=hang,skip=-1pt,font={footnotesize,bf},labelfont=bf}
 
 
@@ -130,11 +134,6 @@ placement=tbhp,
 % \includepdf{folhadeaprovacao_final.pdf}
 
 
-\begin{agradecimentos}
-    Ao Alan Turing.\smallbreak 
-    Ao Provedor de Internet.\smallbreak
-    A Monster Inc.\smallbreak
-\end{agradecimentos}
 
 \begin{epigrafe}
     \vspace*{\fill}
@@ -390,7 +389,7 @@ placement=tbhp,
             \label{fig:15}
         \end{figure}
         
-\chapter{DIAGRAMA DE CASO DE USO PARA O SISTEMA ATIVA}
+\chapter{Diagrama DE CASO DE USO PARA O SISTEMA ATIVA}
   \label{chapter:diagrama de cado de uso para o sistema ativa}
   Este capítulo exibe o diagrama de caso de uso para o Sistema Ativa.
     \begin{figure}[H]
@@ -402,6 +401,172 @@ placement=tbhp,
             \label{fig:Diagrama de Caso de Uso}
         \end{figure}
  
+ 
+\chapter{Cenários}
+    \label{chapter:cenario}
+    \subsection{Registrar Log} \label{registrarlog}
+        \begin{itemize}
+        \item Caso de uso: Registrar Log
+        \item Ator: -Não se Aplica-
+        \item Pré-condição: Algum caso de uso foi utilizado.
+        \item Fluxo Básico:
+             \begin{enumerate}[label=\textbf{A0.\arabic*}]
+                \item \label{a01} O sistema recebe os dados da ação realizada.
+                \item O sistema registra a ação no registros de Logs.
+            \end{enumerate}
+        \item Fluxos Alternativos: -Não se Aplica-
+        
+        \end{itemize}
+    
+     \subsection{Consultar base de dados} \label{consultadorbanco}
+        \begin{itemize}
+        \item Caso de uso: Consultar base de dados
+        \item Ator: -Não se Aplica-
+        \item Pré-condição: Algum caso de uso solicitou uma validação de dados.
+        \item Fluxo Básico:
+            \begin{enumerate}[label=\textbf{B0.\arabic*}]
+                \item O sistema recebe os dados.
+                \item O sistema consulta os dados nos registros. \ref{b11} \ref{b21}
+                \item O sistema retorna uma resposta positiva.
+            \end{enumerate}
+        \item Fluxos Alternativos:
+            \begin{itemize}
+            \item Dados não encontrados 
+            \begin{enumerate}[label=\textbf{B1.\arabic*}]
+                \item \label{b11} O sistema não encontra os dados nos registros.
+                \item O sistema retorna uma reposta negativa.
+            \end{enumerate}
+            
+            \item Erro ao acessar o registro.
+            \begin{enumerate}[label=\textbf{B2.\arabic*}]
+                \item \label{b21} O sistema não consegue acessar os registros.
+                \item O sistema retorna uma resposta negativa.
+            \end{enumerate}
+        \end{itemize}
+        \end{itemize}
+        
+        
+    \subsection{Realizar Login}
+    
+    \begin{itemize}
+        \item Caso de uso: Realizar Login
+        \item Ator: Administrador, Aluno, Professor
+        \item Pré-condição: Usuário e Senha
+        \item Fluxo Básico:
+        \begin{enumerate}[label=\textbf{C0.\arabic*}]
+            \item O ator inicia o Sistema Ativa.
+            \item \label{c02}O sistema disponibiliza a tela de Seleção de Login.
+            \item O ator seleciona o tipo de login. \ref{c11}
+            \item \label{c04}O sistema disponibiliza a tela de Login.
+            \item O ator informa seus dados.
+            \item O sistema usa o caso de uso \textbf{\textit{\nameref{consultadorbanco}}} \ref{c21} \ref{c31} 
+            \item O sistema disponibiliza o acesso a plataforma.
+            \item O sistema usa o caso de uso \textbf{\textit{\nameref{registrarlog}}}
+        \end{enumerate}
+        
+        \item Fluxos Alternativos:
+        \begin{itemize}
+            \item Tela de login errada 
+            \begin{enumerate}[label=\textbf{C1.\arabic*}]
+                \item \label{c11} O ator selecionou o tipo de login errado.
+                \item O ator solicita o retorno.
+                \item O sistema retorna ao passo \ref{c02}.
+            \end{enumerate}
+            
+            \item Dados inválidos ou inexistentes.
+            \begin{enumerate}[label=\textbf{C2.\arabic*}]
+                \item \label{c21} O sistema informa que os dados estão incorretos ou  são inexistentes.
+                \item O sistema usa o caso de uso \textbf{\textit{\nameref{registrarlog}}}
+                \item O sistema retorna ao passo \ref{c04}.
+            \end{enumerate}
+            
+            \item Erro ao acessar o registro.
+            \begin{enumerate}[label=\textbf{C3.\arabic*}]
+                \item \label{c31} O sistema informa que obteve um erro ao acessar os registros dos usuários.
+                \item O sistema usa o caso de uso \textbf{\textit{\nameref{registrarlog}}}
+                \item O sistema retorna ao passo \ref{c04}.
+            \end{enumerate}
+        \end{itemize}
+        
+    \end{itemize}
+    
+    
+    \subsection{Realizar Atividade}
+    
+    \begin{itemize}
+        \item Caso de uso: Realizar Atividade
+        \item Ator: Aluno
+        \item Pré-condição: Estar logado no sistema.
+        \item Fluxo Básico:
+        \begin{enumerate}[label=\textbf{D0.\arabic*}]
+            \item \label{d01} O sistema disponibiliza a tela de seleção de atividades.
+            \item O aluno realiza as atividades. \ref{d11}
+            \item O aluno finaliza as atividades.
+            \item O sistema parabeniza o aluno com uma mensagem e finaliza a aplicação.
+            
+        \end{enumerate}
+        
+        \item Fluxos Alternativos:
+        \begin{itemize}
+            \item Ainda há atividades a serem realizadas.
+            \begin{enumerate}[label=\textbf{D1.\arabic*}]
+                \item \label{d11} O sistema verifica que o aluno ainda possui atividades.
+                \item O sistema informa que o aluno finalizou uma atividade mas ainda existem mais.
+                \item O sistema retorna ao passo \ref{d01}.
+            \end{enumerate}
+            
+        \end{itemize}
+        
+    \end{itemize}
+    
+    \subsection{Cadastrar Turma}
+    
+    \begin{itemize}
+        \item Caso de uso: Manter Turmas
+        \item Ator: ADM
+        \item Pré-condição: Estar logado no sistema, solicitar o cadastro de uma turma.
+        \item Fluxo Básico:
+        \begin{enumerate}[label=\textbf{E0.\arabic*}]
+            \item \label{e01} O sistema disponibiliza a tela de cadastro de turmas.
+            \item O ator seleciona um professor.
+            \item O sistema usa o caso de uso \textbf{\textit{\nameref{consultadorbanco}}}. \ref{e11}.
+            \item O ator seleciona os alunos.
+            \item O sistema usa o caso de uso \textbf{\textit{\nameref{consultadorbanco}}}. \ref{e11}.
+            \item O ator informa a data
+            \item O sistema usa o caso de uso \textbf{\textit{\nameref{consultadorbanco}}}. \ref{e11}. \ref{e21}.
+            \item O ator confirma o cadastro.
+            \item O sistema usa o caso de uso \textbf{\textit{\nameref{registrarlog}}}.
+            \item O sistema retorna a tela de menu da administração.
+            
+        \end{enumerate}
+        
+        \item Fluxos Alternativos:
+        \begin{itemize}
+            \item Erro ao acessar o registro.
+            \begin{enumerate}[label=\textbf{E1.\arabic*}]
+                \item \label{e11} O sistema informa que obteve um erro ao acessar os registros dos usuários.
+                \item O sistema usa o caso de uso \textbf{\textit{\nameref{registrarlog}}}
+                \item O sistema retorna ao passo \ref{e01}.
+            \end{enumerate}
+            
+            \item Turma já cadastrada.
+            \begin{enumerate}[label=\textbf{E2.\arabic*}]
+                \item \label{e21} O sistema informa que a turma já foi cadastrada.
+                \item O sistema retorna ao passo \ref{e01}.
+            \end{enumerate}
+            
+        \end{itemize}
+        
+    \end{itemize}
+\chapter{Diagrama de Classes}
+    \begin{figure}[H]
+        \centering
+        \captionsetup{width=0.9\textwidth}
+        \caption{Diagrama de classes}
+        \includegraphics[width=\linewidth]{fotos/Diagrama de classe.png}
+        \caption*{Fonte: Autoria própria}
+        \label{fig:Diagrama de Classes}
+    \end{figure}
 \bibliography{ref}
 
 \end{document}
