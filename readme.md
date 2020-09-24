@@ -1,8 +1,7 @@
 # Projeto final sistema Ativa
 <div align="center">
-
-[![HitCount](http://hits.dwyl.com/jeffersonjpr/projeto-final-APOO.svg)](http://hits.dwyl.com/jeffersonjpr/projeto-final-APOO)  
-
+ 
+![visitor badge](https://visitor-badge.laobi.icu/badge?page_id=projeto-final-APOO&title=Viewers)
 </div>
 1° Trabalho da da disciplina de Análise e Projetos Orientado a Objetos
 Trabalho feito com o intuito de praticar alguns dos conceitos aprendidos no semestre de APOO.  
